@@ -50,12 +50,15 @@ module.exports = function (grunt) {
                 }
             },
 
-            src_all: {
-                dest: 'src/locale-data',
+            lib_all_by_language: {
+                dest: 'lib/locale-data',
 
                 options: {
-                    prelude: '// GENERATED FILE\nvar locales = [];\n',
-                    postlude: 'export default locales;\n',
+                    prelude: [
+                        '// GENERATED FILE',
+                        'var locales = [];\n\n'
+                    ].join('\n'),
+                    postlude: 'exports["default"] = locales;\n',
 
                     wrapEntry: function (entry) {
                         return 'locales.push(' + entry + ');';
